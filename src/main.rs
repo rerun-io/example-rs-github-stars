@@ -184,7 +184,7 @@ struct PageInfo {
 }
 
 fn main() -> anyhow::Result<()> {
-    re_log::setup_native_logging();
+    re_log::setup_logging();
 
     use clap::Parser as _;
     let args = Args::parse();
@@ -307,10 +307,9 @@ fn run(args: &Args) -> anyhow::Result<()> {
         for (count, star) in stars.iter().enumerate() {
             rec.set_time_nanos("time", star.time.timestamp_nanos_opt().unwrap());
 
-            let ent_path = format!("\"{}\"", series);
             rec.log(
-                ent_path,
-                &rerun::TimeSeriesScalar::new(rerun::components::Scalar(count as f64)),
+                series.to_string(),
+                &rerun::Scalar::new(rerun::components::Scalar(count as f64)),
             )?;
         }
     }
