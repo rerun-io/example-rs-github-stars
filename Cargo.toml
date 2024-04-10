@@ -7,8 +7,8 @@ rust-version = "1.74"
 version = "0.1.0"
 
 [dependencies]
-re_log = "0.13"
-rerun = { version = "0.13", features = ["clap"] }
+re_log = "0.15"
+rerun = { version = "0.15", features = ["clap"] }
 
 anyhow = "1"
 chrono = { version = "0.4", features = ["serde"] }
