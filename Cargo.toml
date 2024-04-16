@@ -1,13 +1,13 @@
 [package]
 authors = ["rerun.io <opensource@rerun.io>"]
 edition = "2021"
-homepage = "https://github.com/rerun-io/github_star_history"
+homepage = "https://github.com/rerun-io/example-rs-github-stars"
 include = ["LICENSE-APACHE", "LICENSE-MIT", "**/*.rs", "Cargo.toml"]
 license = "MIT OR Apache-2.0"
 publish = false
 name = "github_star_history"
 readme = "README.md"
-repository = "https://github.com/rerun-io/github_star_history"
+repository = "https://github.com/rerun-io/example-rs-github-stars"
 rust-version = "1.76"
 version = "0.1.0"
 
