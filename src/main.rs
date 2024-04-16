@@ -3,9 +3,9 @@
 //! Code based on <https://github.com/dtolnay/star-history>,
 //! with some simplifications and improvements.
 
-use std::collections::{BTreeMap, BTreeSet, VecDeque};
+#![allow(clippy::unwrap_used)] // This is not a library
 
-use serde::{Deserialize, Serialize};
+use std::collections::{BTreeMap, BTreeSet, VecDeque};
 
 /// Show number of GitHub stars over time.
 #[derive(Debug, clap::Parser)]
@@ -84,7 +84,7 @@ impl std::fmt::Display for Series {
     }
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(serde::Serialize, serde::Deserialize, Debug)]
 #[serde(transparent)]
 struct Cursor(Option<String>);
 
@@ -107,12 +107,12 @@ struct Work {
     cursor: Cursor,
 }
 
-#[derive(Serialize)]
+#[derive(serde::Serialize)]
 struct Request {
     query: String,
 }
 
-#[derive(Deserialize, Debug)]
+#[derive(serde::Deserialize, Debug)]
 struct Response {
     message: Option<String>,
 
@@ -123,7 +123,7 @@ struct Response {
     errors: Vec<Message>,
 }
 
-#[derive(Deserialize, Debug)]
+#[derive(serde::Deserialize, Debug)]
 struct Message {
     message: String,
 }
@@ -134,32 +134,32 @@ enum Data {
     Repo(Option<Repo>),
 }
 
-#[derive(Deserialize, Debug)]
+#[derive(serde::Deserialize, Debug)]
 struct Owner {
     login: String,
     repositories: Repositories,
 }
 
-#[derive(Deserialize, Debug)]
+#[derive(serde::Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
 struct Repositories {
     page_info: PageInfo,
     nodes: Vec<Repo>,
 }
 
-#[derive(Deserialize, Debug)]
+#[derive(serde::Deserialize, Debug)]
 struct Repo {
     name: String,
     owner: Account,
     stargazers: Option<Stargazers>,
 }
 
-#[derive(Deserialize, Ord, PartialOrd, Eq, PartialEq, Clone, Default, Debug)]
+#[derive(serde::Deserialize, Ord, PartialOrd, Eq, PartialEq, Clone, Default, Debug)]
 struct Account {
     login: String,
 }
 
-#[derive(Deserialize, Debug)]
+#[derive(serde::Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
 struct Stargazers {
     page_info: PageInfo,
@@ -169,14 +169,14 @@ struct Stargazers {
 }
 
 /// Represents a single star-gazer.
-#[derive(Deserialize, Ord, PartialOrd, Eq, PartialEq, Clone, Debug)]
+#[derive(serde::Deserialize, Ord, PartialOrd, Eq, PartialEq, Clone, Debug)]
 struct Star {
     #[serde(rename = "starredAt")]
     time: chrono::DateTime<chrono::Utc>,
     node: Account,
 }
 
-#[derive(Deserialize, Debug)]
+#[derive(serde::Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
 struct PageInfo {
     has_next_page: bool,
