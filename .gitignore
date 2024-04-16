@@ -1,1 +1,17 @@
-target/
+# Mac stuff:
+.DS_Store
+
+# C++ build directory
+build
+
+# Rust compile target directories:
+target
+target_ra
+target_wasm
+
+# https://github.com/lycheeverse/lychee
+.lycheecache
+
+# Pixi environment
+.pixi
+.ruff_cache
