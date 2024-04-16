@@ -66,12 +66,6 @@ jobs:
           command: test
           args: --doc --all-features
 
-      - name: cargo doc --lib
-        uses: actions-rs/cargo@v1
-        with:
-          command: doc
-          args: --lib --no-deps --all-features
-
       - name: cargo doc --document-private-items
         uses: actions-rs/cargo@v1
         with:
