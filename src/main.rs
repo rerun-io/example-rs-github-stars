@@ -278,7 +278,7 @@ where
 }
 
 fn run(args: &Args) -> anyhow::Result<()> {
-    let serieses: Vec<Series> = args
+    let many_series: Vec<Series> = args
         .repos
         .iter()
         .map(|arg| {
@@ -296,7 +296,7 @@ fn run(args: &Args) -> anyhow::Result<()> {
         })
         .collect();
 
-    let stars = requests(&serieses)?;
+    let stars = requests(&many_series)?;
 
     let (rec, _guard) = args
         .rerun
@@ -317,13 +317,13 @@ fn run(args: &Args) -> anyhow::Result<()> {
     Ok(())
 }
 
-fn requests(serieses: &[Series]) -> Result<BTreeMap<Series, BTreeSet<Star>>> {
+fn requests(many_series: &[Series]) -> Result<BTreeMap<Series, BTreeSet<Star>>> {
     use std::io::Write as _;
 
     let mut stars = BTreeMap::new();
 
     let mut work = Vec::new();
-    for series in serieses {
+    for series in many_series {
         stars.insert(series.clone(), BTreeSet::default());
         work.push(Work {
             series: series.clone(),
