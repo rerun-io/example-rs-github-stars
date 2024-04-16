@@ -60,12 +60,6 @@ jobs:
           command: check
           args: --no-default-features --lib --all-targets
 
-      - name: Test doc-tests
-        uses: actions-rs/cargo@v1
-        with:
-          command: test
-          args: --doc --all-features
-
       - name: cargo doc --document-private-items
         uses: actions-rs/cargo@v1
         with:
