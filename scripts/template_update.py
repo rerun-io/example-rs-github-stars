@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# Copied from https://github.com/rerun-io/rerun_template
 
 """
 The script has two purposes.
