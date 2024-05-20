@@ -16,8 +16,8 @@ all-features = true
 
 
 [dependencies]
-re_log = "0.15"
-rerun = { version = "0.15", features = ["clap"] }
+re_log = "0.16"
+rerun = { version = "0.16", features = ["clap"] }
 
 anyhow = "1"
 chrono = { version = "0.4", features = ["serde"] }
