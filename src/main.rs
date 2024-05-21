@@ -308,7 +308,7 @@ fn run(args: &Args) -> anyhow::Result<()> {
             rec.set_time_nanos("time", star.time.timestamp_nanos_opt().unwrap());
 
             rec.log(
-                series.to_string(),
+                rerun::entity_path!(series),
                 &rerun::Scalar::new(rerun::components::Scalar(count as f64)),
             )?;
         }
