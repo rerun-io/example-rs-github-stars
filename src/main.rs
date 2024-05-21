@@ -70,6 +70,12 @@ enum Series {
     Repo(String, String),
 }
 
+impl Series {
+    fn entity_path(&self) -> rerun::EntityPath {
+        rerun::entity_path!(self)
+    }
+}
+
 impl std::fmt::Display for Series {
     fn fmt(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
@@ -304,11 +310,16 @@ fn run(args: &Args) -> anyhow::Result<()> {
         .init("rerun_example_github_star_history")?;
 
     for (series, stars) in &stars {
+        rec.log_static(
+            series.entity_path(),
+            &rerun::SeriesLine::new().with_name(series.to_string()),
+        )?;
+
         for (count, star) in stars.iter().enumerate() {
             rec.set_time_nanos("time", star.time.timestamp_nanos_opt().unwrap());
 
             rec.log(
-                rerun::entity_path!(series),
+                series.entity_path(),
                 &rerun::Scalar::new(rerun::components::Scalar(count as f64)),
             )?;
         }
