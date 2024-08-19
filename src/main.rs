@@ -318,10 +318,7 @@ fn run(args: &Args) -> anyhow::Result<()> {
         for (count, star) in stars.iter().enumerate() {
             rec.set_time_nanos("time", star.time.timestamp_nanos_opt().unwrap());
 
-            rec.log(
-                series.entity_path(),
-                &rerun::Scalar::new(rerun::components::Scalar(count as f64)),
-            )?;
+            rec.log(series.entity_path(), &rerun::Scalar::new(count as f64))?;
         }
     }
 
