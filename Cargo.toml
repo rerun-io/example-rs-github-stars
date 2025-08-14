@@ -16,8 +16,8 @@ all-features = true
 
 
 [dependencies]
-re_log = "0.23"
-rerun = { version = "0.23", default-features = false, features = [
+re_log = "0.24.1"
+rerun = { version = "0.24.1", default-features = false, features = [
     "clap",
     "sdk",
 ] }
