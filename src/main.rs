@@ -302,7 +302,11 @@ fn run(args: &Args) -> anyhow::Result<()> {
         })
         .collect();
 
+    re_log::info!("Gathering stars for {} repo(s)…", many_series.len());
+
     let stars = requests(&many_series)?;
+
+    re_log::info!("Found stars for {} repo(s)…", stars.len());
 
     let (rec, _guard) = args
         .rerun
@@ -312,13 +316,18 @@ fn run(args: &Args) -> anyhow::Result<()> {
     for (series, stars) in &stars {
         rec.log_static(
             series.entity_path(),
-            &rerun::SeriesLine::new().with_name(series.to_string()),
+            &rerun::SeriesLines::new().with_names([series.to_string()]),
         )?;
 
         for (count, star) in stars.iter().enumerate() {
-            rec.set_time_nanos("time", star.time.timestamp_nanos_opt().unwrap());
+            rec.set_time(
+                "time",
+                rerun::TimeCell::from_timestamp_nanos_since_epoch(
+                    star.time.timestamp_nanos_opt().unwrap(),
+                ),
+            );
 
-            rec.log(series.entity_path(), &rerun::Scalar::new(count as f64))?;
+            rec.log(series.entity_path(), &rerun::Scalars::single(count as f64))?;
         }
     }
 
